@@ -13,15 +13,21 @@ Router.get('/',async (req,res)=>{
 })
 
 Router.get('/:id',(req,res)=>{
-    const id = req.params.id;
-    res.status(200).json({
-        id:id,
-        status:"success"
-    })
+
+
 })
 
-Router.post('/',(req,res)=>{
-
+Router.post('/',async (req,res)=>{
+      const user = new User({
+        age:Number(req.body.age)
+      })
+      try{
+        const newUser = await user.save();
+        res.status(201).json(newUser);
+      }
+      catch(error){
+        res.status(500).json({message:error.message})
+      }
 })
 
 Router.patch('/',(req,res)=>{
